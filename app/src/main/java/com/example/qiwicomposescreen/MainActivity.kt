@@ -4,29 +4,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.qiwicomposescreen.ui.theme.Purple200
 import com.example.qiwicomposescreen.ui.theme.QiwiComposeScreenTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,16 +31,29 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             QiwiComposeScreenTheme {
-//                // A surface container using the 'background' color from the theme
-////                    searchBar()
-//                    BalanceCard("")
-                }
+                ProductScreen()
+            }
             }
         }
     }
 
 @Composable
-fun searchBar () {
+fun ProductScreen () {
+    MaterialTheme.colors.background
+    LazyColumn(modifier = Modifier
+        .fillMaxSize()
+        .padding(horizontal = 10.dp, vertical = 20.dp)
+    ){
+        item { SearchBar() }
+        item { BalanceCard() }
+        item { BodyElement() }
+
+    }
+
+}
+
+@Composable
+fun SearchBar () {
     //------------------------ Поиск --------------------------------
     Row(
         modifier = Modifier.padding(10.dp),
@@ -78,13 +88,12 @@ fun searchBar () {
 
 
 @Composable
-fun BalanceCard(name: String) {
+fun BalanceCard() {
     //------------------------ Карточка --------------------------------
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp, vertical = 80.dp)
-            .clickable { },
+            .padding(vertical = 20.dp),
         elevation = 5.dp,
         backgroundColor = MaterialTheme.colors.primary
     ) {
@@ -108,11 +117,12 @@ fun BalanceCard(name: String) {
                 modifier = Modifier
                     .align(CenterHorizontally)
                     .fillMaxWidth()
-                    .padding(horizontal = 15.dp)
+                    .padding(horizontal = 30.dp)
+                    .height(40.dp)
             ) {
                 Text(
                     text = "Пополнить кошелек",
-                    style = MaterialTheme.typography.button
+                    style = MaterialTheme.typography.body1
                 )
             }
         }
@@ -120,23 +130,35 @@ fun BalanceCard(name: String) {
 }
 
     @Composable
-    fun BodyElement (modifier: Modifier = Modifier) {
+    fun BodyElement () {
+        Text(
+            text = stringResource(R.string.favourite_header),
+            style = MaterialTheme.typography.h5,
+        )
         Row (
-            modifier = Modifier
+            modifier = Modifier.padding(vertical = 20.dp),
+            verticalAlignment = CenterVertically
         ) {
             Image(
-                painter = ,
-                contentDescription = )
+                painter = painterResource(R.drawable.megafon_logo),
+                contentDescription = null,
+                Modifier
+                    .width(50.dp)
+            )
+            Text(
+                text = stringResource(R.string.favourite_pay),
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier.padding(horizontal = 10.dp)
+
+            )
         }
     }
 
     @Preview(showBackground = true)
     @Composable
-    fun DefaultPreview() {
+    fun MainScreenPreview() {
         QiwiComposeScreenTheme {
-            searchBar()
-            BalanceCard("")
-            BodyElement()
+            ProductScreen()
         }
     }
 
