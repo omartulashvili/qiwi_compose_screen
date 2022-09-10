@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">QiwiComposeScreen</string>
+    <string name="placeholder_search">Поиск</string>
 </resources>
