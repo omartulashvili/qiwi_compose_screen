@@ -1,14 +1,12 @@
 package com.example.qiwicomposescreen
 
-import android.graphics.Canvas
-import android.graphics.Color
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -18,15 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Bottom
+import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.Gray
-import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -34,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.qiwicomposescreen.ui.theme.QiwiComposeScreenTheme
+import kotlin.math.min
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +56,7 @@ fun ProductScreen () {
         item { BalanceCard() }
         item { BodyElement() }
         item { BodyScrollElements() }
+        item { FooterTextColumn() }
 
     }
 
@@ -169,6 +169,7 @@ fun ProductScreen () {
             text = "Платежи и переводы",
             style = MaterialTheme.typography.h5
         )
+        // --------Основные иконки-------
         Row(
             modifier = Modifier
                 .padding(vertical = 15.dp)
@@ -318,7 +319,7 @@ fun ProductScreen () {
             Column(
                 horizontalAlignment = CenterHorizontally,
                 modifier = Modifier.padding(horizontal = 10.dp)
-                ) {
+            ) {
                 Box(
                     contentAlignment = Center
                 ) {
@@ -343,8 +344,46 @@ fun ProductScreen () {
                         .padding(4.dp)
                 )
             }
+        }
+        // --------Рекламные карточки-------
+        Row(modifier = Modifier.horizontalScroll(rememberScrollState()))
+        {
+            Card(modifier = Modifier.padding(vertical = 10.dp))
+            {
+                Box(modifier = Modifier
+                    .padding(10.dp)
+                )
+                {
+                    Image(
+                        painter = painterResource(R.drawable.bitcoin),
+                        contentDescription = null,
+                        contentScale = ContentScale.Inside,
+                        modifier = Modifier
+                            .background(Color.LightGray)
+                            .width(350.dp)
+                            .height(150.dp)
+                            .padding(horizontal = 80.dp)
+                    )
+                    Column(Modifier.padding(30.dp)) {
+                        Text(
+                            text = "Будьте в курсе\nважных новостей!",
+                            style = MaterialTheme.typography.h6,
+                        )
+                        Text(
+                            text = "Укажите актуальную почту",
+                            style = MaterialTheme.typography.subtitle1,
+                            modifier = Modifier.padding(vertical = 4.dp)
+                        )
                     }
                 }
+        }
+    }
+    }
+
+    @Composable
+    fun FooterTextColumn() {
+    
+    }
 
     @Preview(showBackground = true)
     @Composable
