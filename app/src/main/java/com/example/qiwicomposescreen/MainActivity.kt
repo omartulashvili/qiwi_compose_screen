@@ -2,6 +2,7 @@ package com.example.qiwicomposescreen
 
 
 import android.os.Bundle
+import android.text.Layout
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
@@ -10,6 +11,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
@@ -24,6 +27,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -382,10 +386,42 @@ fun ProductScreen () {
 
     @Composable
     fun FooterTextColumn() {
-    
+        Text(
+            text = "Полезное",
+            style = MaterialTheme.typography.h5
+        )
+        Column(modifier = Modifier.padding(vertical = 15.dp)
+        ) {
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    horizontalArrangement = Arrangement.Start,
+//                    modifier = Modifier.fillMaxWidth(0.8f)
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.expense),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .width(35.dp)
+                    )
+                    Text(
+                        text = "Счета к оплате",
+                        style = MaterialTheme.typography.body1,
+                        modifier = Modifier
+                            .align(CenterVertically)
+                            .padding(horizontal = 10.dp)
+                    )
+                }
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowRight,
+                        contentDescription = null,
+                        )
+                }
+            }
+        }
     }
 
-    @Preview(showBackground = true)
+    @Preview(showBackground = true, heightDp = 1200)
     @Composable
     fun MainScreenPreview() {
         QiwiComposeScreenTheme {
